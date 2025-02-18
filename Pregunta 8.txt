@@ -1,0 +1,3 @@
+Con start tardó 1749 ms
+Con run tardó 4763 ms.
+Lo que se observa es que con Run los hilos van uno detrás de otro, y tarda más por ende.

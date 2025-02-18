@@ -1,0 +1,1 @@
+La diferencia es que el segundo programa tarda mucho menos ya que varios hilos a la vez se están ejecutando para terminar la misma tarea, mientras que en el primero se crea un único hilos que ejecuta toda la tarea.
