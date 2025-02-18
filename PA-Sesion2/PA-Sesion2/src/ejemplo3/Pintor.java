@@ -4,6 +4,8 @@ package ejemplo3;
 // A continuación obtiene un color al azar entre rojo, verde, azul y amarillo y pinta con ese color
 // durante un tiempo aleatorio entre 3 y 5 segundos, y vuelve a empezar el ciclo.
 import java.awt.Color;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.JButton;
 
 public class Pintor extends Thread
@@ -11,6 +13,7 @@ public class Pintor extends Thread
     private JButton b;
     private Paleta p;
     private Color negro = Color.black;
+    private final Lock lock = new ReentrantLock();
     
     public Pintor(JButton b, Paleta p)
     {
@@ -25,6 +28,8 @@ public class Pintor extends Thread
         
         while (true)
         {
+            lock.lock(); //Bloqueo del hilo para que no haya condiciones de carrera
+            try{
             tiempoEnNegro = (long) 2000 + (int)((4000-2000)*Math.random());
             tiempoEnColor = (long) 3000 + (int)((5000-3000)*Math.random());
             
@@ -38,9 +43,15 @@ public class Pintor extends Thread
             b.setBackground(p.tomaColor());   //Pinta el botón con el color aleatorio
             try
             {
-                sleep(tiempoEnColor); //Espera entre 3 y 5 segundos
-                //System.out.println("Tiempo en color: "+tiempoEnColor);
+                //Coge el color que esta siendo usado para liberarlo al finalizar su ejecución
+                int i = p.getNumFila();
+                sleep(tiempoEnColor); //Espera entre 3 y 5 segundo
+                p.liberarColor(i);
+                
             } catch (InterruptedException e){}
+            }finally{
+                lock.unlock();
+            }
         }
     }
 }
