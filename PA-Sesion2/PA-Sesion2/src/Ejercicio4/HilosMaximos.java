@@ -16,7 +16,7 @@ public class HilosMaximos {
         ArrayList<Hilos> pList = new ArrayList<>();
         int id = 1;
         
-        for(int i = 0; i < 10000000; i++){   
+        while(true){   
             Hilos p = new Hilos(id); 
             pList.add(p);
             p.run();
