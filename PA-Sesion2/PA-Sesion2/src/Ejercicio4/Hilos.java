@@ -4,6 +4,8 @@
  */
 package Ejercicio4;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author caice
@@ -11,7 +13,7 @@ package Ejercicio4;
 public class Hilos extends Thread{
    
     private int id;
-    
+   
     public Hilos(int id){
         this.id = id;
     }
