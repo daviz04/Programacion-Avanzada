@@ -17,7 +17,7 @@ public class Ejecucion {
         for(int i = 0; i < 1000; i++){
             Hilos p1 = new Hilos(id);
             pList.add(p1);
-            p1.start();
+            p1.run();
             id++;
         }
     }
