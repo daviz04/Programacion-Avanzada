@@ -1,6 +1,5 @@
 package pollitos;
 
-import static java.lang.Thread.sleep;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

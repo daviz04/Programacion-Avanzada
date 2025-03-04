@@ -15,21 +15,10 @@ import pollitos.Estancia;
 public class Main {
         public static void main(String[] args) {
         // TODO code application logic here
-        Estancia bebedero = new Estancia("bebedero", 1);
-        Pollitos pollo = new Pollitos(bebedero);
-        //Aqui toca poner las demaás
-          
-       
-        pollo.pasear();
-        //Decidir a que sitio entra antes
-        while(true){
-         int tiempo = (int) Math.random()*2000;
-         bebedero.entrar();
-            try {
-               sleep(tiempo);
-               bebedero.salir(); 
-            } catch (Exception e) {
-            }
-        }
+        Estancia corral = new Estancia("Corral", 28);
+        for(int i = 1; i <= 28; i++){
+        Pollitos pollo = new Pollitos(i, corral);
+        pollo.start();
+        }      
     }
 }
