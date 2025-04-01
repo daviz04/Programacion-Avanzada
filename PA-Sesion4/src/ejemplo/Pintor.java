@@ -26,6 +26,31 @@ public class Pintor extends Thread
         while (true)
         {
             b.setBackground(negro);                 //Pinta el botón de negro
+            if(this.numPintor == 3){
+                try
+            {
+                sleep((int)(200*Math.random()));    //Espera entre 0 y 0.2 seg.
+            } catch (InterruptedException e){ }
+            
+            Color uno = p.tomaColor(numPintor+1);     //Toma de la paleta el primer color
+            b.setBackground(uno);                   //y pinta el botón
+            try
+            {
+                sleep((int)(50*Math.random()));       //Espera entre 0 y 0.05 seg.
+            } catch (InterruptedException e){ }
+            
+            Color dos = p.tomaColor(numPintor);     //Toma de la paleta el segundo color
+            Color mezcla = p.mezclaColores(uno, dos); //los mezcla
+            b.setBackground(mezcla);                  //y pinta el botón
+            try
+            {
+                sleep((int)(100*Math.random()));      //Espera entre 0 y 0.1 seg.
+            } catch (InterruptedException e){ }
+            p.dejaColor(numPintor);
+            p.dejaColor(numPintor+1);
+            
+           }else{
+           
             try
             {
                 sleep((int)(200*Math.random()));    //Espera entre 0 y 0.2 seg.
@@ -47,6 +72,7 @@ public class Pintor extends Thread
             } catch (InterruptedException e){ }
             p.dejaColor(numPintor);
             p.dejaColor(numPintor+1);
+            }
         }
     }
 }
