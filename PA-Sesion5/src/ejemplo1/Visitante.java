@@ -17,6 +17,7 @@ public class Visitante extends Thread
         return id;
     }
     
+    
     public void run()
     {
         try

@@ -1,9 +1,17 @@
 package ejemplo1;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import jdk.internal.org.jline.terminal.TerminalBuilder;
+
 public class ProgPrincipal extends javax.swing.JFrame
 {
     Exposicion exposicion;
     Visitante v;
+    Semaphore pausa = new Semaphore(1);
     
     /** Creates new form ProgPrincipal */
     public ProgPrincipal()
@@ -15,6 +23,31 @@ public class ProgPrincipal extends javax.swing.JFrame
             v=new Visitante(i,exposicion);
             v.start();
         }
+        
+        jButton1.addActionListener(new ActionListener(){
+        public void actionPerformed(ActionEvent e) {
+            exposicion.detener();
+            }
+        });
+        
+        jButton2.addActionListener(new ActionListener(){
+        public void actionPerformed(ActionEvent e) {
+            exposicion.reanudar();
+        }
+        });
+        
+        jButton3.addActionListener(new ActionListener(){
+        public void actionPerformed(ActionEvent e) {
+                exposicion.abrir();
+            }
+        });
+        
+        jButton4.addActionListener(new ActionListener(){
+        public void actionPerformed(ActionEvent e) {
+                exposicion.cerrar();
+            }
+        });
+        
     }
 
     /** This method is called from within the constructor to
@@ -53,6 +86,11 @@ public class ProgPrincipal extends javax.swing.JFrame
         jButton3.setText(" Abrir");
 
         jButton4.setText("Cerrar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,6 +148,10 @@ public class ProgPrincipal extends javax.swing.JFrame
         setSize(new java.awt.Dimension(809, 338));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
     * @param args the command line arguments
