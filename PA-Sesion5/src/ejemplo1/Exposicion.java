@@ -10,7 +10,6 @@ public class Exposicion
     int aforo;
     ListaThreads colaEspera, dentro;
     Semaphore semaforo;
-    Semaphore pausa;
     private boolean abierta = true;
     private boolean detenida = false;
     
@@ -18,7 +17,6 @@ public class Exposicion
     {
         this.aforo=aforo;
         semaforo=new Semaphore(aforo,true);
-        pausa = new Semaphore(0, true);
         colaEspera=new ListaThreads(tfEsperan);
         dentro=new ListaThreads(tfDentro);
     }
@@ -26,11 +24,6 @@ public class Exposicion
     public void entrar(Visitante v)
     {
         colaEspera.meter(v);
-     while(!abierta){
-         try {
-             wait();
-         } catch (InterruptedException ex) {}
-     } 
         try {
             semaforo.acquire();
         } catch (InterruptedException e) {
@@ -44,7 +37,9 @@ public class Exposicion
     public void salir(Visitante v)
     {
         dentro.sacar(v);
+        if(abierta){
         semaforo.release();
+        }
     }
     
     public void mirar(Visitante v)
@@ -71,9 +66,10 @@ public class Exposicion
     
     public void cerrar(){
         abierta = false;
+        semaforo.drainPermits();
     }
     public synchronized void abrir(){
             abierta = true; 
-            pausa.notify();
+            semaforo.release(aforo);
     }
 }
